@@ -16,7 +16,7 @@ if (PHPYSTAND_CONSOLE)
 	add_executable(${PROJECT_NAME} ${sources})
 	target_compile_definitions(${PROJECT_NAME} PRIVATE PHPYSTAND_CONSOLE)
 else()
-	add_executable(${PROJECT_NAME} ${sources})
+	add_executable(${PROJECT_NAME} WIN32 ${sources})
 endif()
 
 # 设置包含目录
