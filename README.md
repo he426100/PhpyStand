@@ -51,7 +51,7 @@ try {
 ```
 
 2. gui
-```
+```php
 <?php
 
 PyCore::import('site')->addsitedir('./Lib/site-packages');
@@ -74,6 +74,23 @@ $ui->buttonBox->rejected->connect(function () use ($dialog) {
 
 $dialog->show();
 exit($app->exec());
+```
+
+3. MessageBox
+```php
+<?php
+
+$ffi = FFI::cdef('
+    typedef char TCHAR;
+    typedef unsigned int UINT;
+    typedef const TCHAR *LPCTSTR;
+    typedef LPCTSTR LPCSTR;
+    typedef UINT HWND;
+
+    int MessageBoxA(HWND hWnd, LPCSTR lpText, LPCSTR lpCaption, UINT uType);
+', 'user32.dll');
+
+$ffi->MessageBoxA(null, 'Message', 'Hello, World!', 0);
 ```
 
 ## 参考文档
