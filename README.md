@@ -31,7 +31,8 @@
 替换 Release 内下载的 PyStand.exe 文件的程序图标。
 
 ## 未解决问题
-无法像 `PyStand` 那样把所有 python 文件放在 `runtime` 目录下
+- 无法像 `PyStand` 那样把所有 python 文件放在 `runtime` 目录下 
+- 暂不支持 `PyStand` 那样的环境检测，如果目录下无 `phpy` 环境会无法运行
 
 ## 使用例子
 1. console+phar
