@@ -12,7 +12,7 @@
 
 ## 编译指南
 - 按 [build-on-windows] (https://github.com/swoole/phpy/blob/main/docs/cn/php/build-on-windows.md) 编译，编译配置增加`--enbale-embed`
-- 复制 `php-8.1.27-src\x64\Release` 中的 `php-8.1.27-devel-vs16-x64` 和 `Release` 到本项目的 `php` 目录下
+- 复制 `php-8.1.27-src\x64\Release` 中的 `php-8.1.27-devel-vs16-x64` 和 `php-8.1.27` 到本项目的 `php` 目录下
 - `mkdir build && cd build && cmake .. && cmake --build .`
 
 
