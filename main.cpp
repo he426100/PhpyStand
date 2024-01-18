@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <main/php.h>
 #include <sapi/embed/php_embed.h>
 #include <string>
 #include <codecvt>
@@ -67,33 +68,24 @@ int main()
     std::wstring script_path = module_path.substr(0, module_path.find_last_of(L'.'));
     script_path += L".int";
 
-    // 构建要执行的 PHP 脚本命令
-    std::wstring script_command = L"require '";
-    script_command += script_path;
-    script_command += L"';";
-
     // 设置环境变量
     SetEnvironmentVariableW(L"PHPYSTAND", module_path.c_str());
     SetEnvironmentVariableW(L"PHPYSTAND_SCRIPT", script_path.c_str());
 
     // 将宽字符串转换为 UTF-8 编码的 std::string
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    std::string utf8_script = converter.to_bytes(script_command);
+    std::string utf8_script = converter.to_bytes(script_path);
 
     // 执行 PHP 代码，并处理可能的异常
     PHP_EMBED_START_BLOCK(0, NULL);
 
-    zend_try
-    {
-        zend_eval_string(utf8_script.c_str(), NULL, "phpy app");
-    }
-    zend_end_try();
+    zend_file_handle file_handle;
+	zend_stream_init_filename(&file_handle, utf8_script.c_str());
 
-    if (EG(exception))
+    if (php_execute_script(&file_handle) == FAILURE)
     {
-        wprintf(L"run %s error\n", script_path.c_str());
+        php_printf("Failed\n");
     }
-
     PHP_EMBED_END_BLOCK();
 
     return 0;
