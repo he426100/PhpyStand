@@ -1,4 +1,4 @@
-# php-embed-windows
+# PhpyStand
 [swoole/phpy](https://github.com/swoole/phpy) 独立部署环境，这个项目是搭配 [swoole/phpy](https://github.com/swoole/phpy) 使用的，参考了[PyStand](https://github.com/skywind3000/PyStand)
 
 ## 功能说明
@@ -19,11 +19,12 @@
 
 ## 使用方式
 
-- 用 CMake 生成 `PhpyStand.exe` （可用 `Enigma Virtual Box` 打包成单个exe文件）。
+- 用 CMake 生成 `PhpyStand.exe`。
 - 下载 [swoole/phpy](https://github.com/swoole/phpy) windows包 和 Python Embedded 版本，用embed python代替其中的python文件，放到 `PhpyStand.exe` 所在目录内。
 - 在 `PhpyStand.exe` 所在目录创建 PHP 源代码 PhpyStand.int。
 - 双击 `PhpyStand.exe` 就会运行 `PhpyStand.int` 里的代码。
 - 可以编译成命令行版方便调试，CMake 的时候加 `-DPYSTAND_CONSOLE=ON` 即可。
+- 可用 `Enigma Virtual Box` 打包成单个exe文件
 
 ### 更换图标
 
