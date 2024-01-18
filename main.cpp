@@ -79,13 +79,14 @@ int main()
     // 执行 PHP 代码，并处理可能的异常
     PHP_EMBED_START_BLOCK(0, NULL);
 
-    zend_file_handle file_handle;
-	zend_stream_init_filename(&file_handle, utf8_script.c_str());
-
-    if (php_execute_script(&file_handle) == FAILURE)
+    zend_file_handle zfd;
+    zend_stream_init_filename(&zfd, utf8_script.c_str());
+    if (php_execute_script(&zfd) == FAILURE)
     {
         php_printf("Failed\n");
     }
+    zend_destroy_file_handle(&zfd);
+    
     PHP_EMBED_END_BLOCK();
 
     return 0;
