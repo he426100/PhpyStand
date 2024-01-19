@@ -11,7 +11,7 @@
 
 
 ## 编译指南
-- 按 [build-on-windows] (https://github.com/swoole/phpy/blob/main/docs/cn/php/build-on-windows.md) 编译，编译配置增加`--enbale-embed`
+- 按 [build-on-windows](https://github.com/swoole/phpy/blob/main/docs/cn/php/build-on-windows.md) 编译，编译配置增加`--enbale-embed`
 - 复制 `php-8.1.27-src\x64\Release` 中的 `php-8.1.27-devel-vs16-x64` 和 `php-8.1.27` 到项目的 `php` 目录下
 - 复制 `php8embed.lib` 到项目的 `build` 目录下
 - `mkdir build && cd build && cmake .. && cmake --build .`
@@ -50,29 +50,25 @@ try {
 }
 ```
 
-2. gui
+2. gui [手把手教你玩qt](docs/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%8E%A9qt.md)
 ```php
 <?php
 
-PyCore::import('site')->addsitedir('./Lib/site-packages');
-PyCore::import('sys')->path->append('.');
+PyCore::import('site')->addsitedir(__DIR__ . '/Lib/site-packages');
+$sys = PyCore::import('sys');
+$sys->path->append(__DIR__);
 
-$QtCore = PyCore::import('PySide6.QtCore');
 $QtWidgets = PyCore::import('PySide6.QtWidgets');
+$MainWindow = PyCore::import('mainwindow')->Ui_MainWindow;
 
 $app = $QtWidgets->QApplication($sys->argv);
-$dialog = $QtWidgets->QDialog();
-$ui = PyCore::import('ui_dialog')->Ui_Dialog();
-$ui->setupUi($dialog);
+$window = $QtWidgets->QMainWindow();
 
-$ui->buttonBox->accepted->connect(function () use ($process, $ui) {
-    $dialog->accept();
-});
-$ui->buttonBox->rejected->connect(function () use ($dialog) {
-    $dialog->reject();
-});
+// php中无法继承python的类
+$ui = $MainWindow();
+$ui->setupUi($window);
 
-$dialog->show();
+$window->show();
 exit($app->exec());
 ```
 
